@@ -2,40 +2,56 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"strings"
 )
 
-//Using Functions
+//Multiple Return Values - Part 1
 
-func sayGreeting(n string) {
-	fmt.Printf("Good morning %v \n", n)
+func getInitials(n string) (string, string) {
+	s := strings.ToUpper(n)
+	names := strings.Split(s, " ")
+
+	var initials []string
+	for _, v := range names {
+		initials = append(initials, v[:1])
+	}
+
+	if len(initials) > 1 {
+		return initials[0], initials[1]
+		/*
+			to get the last element of a slice is array[len(array)-1]
+		*/
+	}
+
+	return initials[0], "_"
 }
 
-func sayBye(n string) {
-	fmt.Printf("Goodbye %v \n", n)
+func multReturnValues() {
+	fn1, sn1 := getInitials("tifa lockhart")
+	fmt.Println(fn1, sn1)
+
+	fn2, sn2 := getInitials("cloud strife")
+	fmt.Println(fn2, sn2)
+
+	fn3, sn3 := getInitials("barret")
+	fmt.Println(fn3, sn3)
 }
 
-func cycleNames(n []string, f func(string)) {
-	for _, v := range n {
-		f(v)
+//Package Scope - Part 2
+
+func packageScope() {
+	sayHello("mario")
+	showScore()
+
+	for _, v := range points {
+		fmt.Println(v)
 	}
 }
 
-func circleArea(r float64) float64 {
-	return math.Pi * r * r
-}
+var score float64 = 99.5
 
 func main() {
-	sayGreeting("mario")
-	sayGreeting("luigi")
-	sayBye("mario")
-
-	ff := []string{"cloud", "barret", "tifa"}
-	cycleNames(ff, sayGreeting)
-	cycleNames(ff, sayBye)
-
-	a1 := circleArea(10.5)
-	a2 := circleArea(15)
-	fmt.Println(a1, a2)
-	fmt.Printf("circle 1 area is %0.3f & circle 2 area is %0.3f \n", a1, a2)
+	//score = 99.5
+	multReturnValues()
+	packageScope()
 }
