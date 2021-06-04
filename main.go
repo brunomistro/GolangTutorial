@@ -4,5 +4,5 @@ import "fmt"
 
 func main() {
 	mybill := newBill("Bruno")
-	fmt.Println(mybill)
+	fmt.Println(mybill.format())
 }
