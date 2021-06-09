@@ -4,10 +4,11 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
-//User Input
+// Parsing Floats
 
 // func getInput(prompt string, r *bufio.Reader) (string, error) {
 // 	fmt.Print(prompt)
@@ -42,14 +43,32 @@ func promptOptions(b bill) {
 	case "a":
 		name, _ := getInput("Item name: ")
 		price, _ := getInput("Item price: ")
-		fmt.Println(name, price)
+
+		p, err := strconv.ParseFloat(price, 64)
+		if err != nil {
+			fmt.Println("The price must be a number!")
+			promptOptions(b)
+		}
+		b.addItem(name, p)
+
+		fmt.Println("Item added - ", name, price)
+		promptOptions(b)
 
 	case "t":
 		tip, _ := getInput("Enter tip amount ($): ")
-		fmt.Println(tip)
+
+		t, err := strconv.ParseFloat(tip, 64)
+		if err != nil {
+			fmt.Println("The tip must be a number!")
+			promptOptions(b)
+		}
+		b.updateTip(t)
+
+		fmt.Println("Tip added - ", tip)
+		promptOptions(b)
 
 	case "s":
-		fmt.Println("you chose to save the bill")
+		fmt.Println("you chose to save the bill", b)
 
 	default:
 		fmt.Println("That was not a valid option...")
