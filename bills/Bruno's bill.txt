@@ -1,0 +1,5 @@
+Bill breakdown:
+Cake:                     ...$5
+Coffe:                    ...$3
+tip:                      ...$2
+total:                    ...$10.00
